@@ -87,5 +87,20 @@ class Redis:
         async with redis.client() as conn:
             return await conn.ttl(name=key)
 
-    async def create_list(self, key: str, value: list):
+    async def rpush_list(self, key: str, value: str):
         redis = await self.__create_connector()
+        async with redis.client() as conn:
+            await conn.rpush(
+                    key,
+                    value
+                    )
+    
+    async def get_list(self, key: str, start: int, end: int):
+        redis = await self.__create_connector()
+        async with redis.client() as conn:
+            return await conn.lrange(
+                    name=key,
+                    start=start,
+                    end=end
+                    )
+        

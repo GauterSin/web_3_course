@@ -4,7 +4,8 @@ from .base import BaseExceptionHandler
 __all__ = [
         'UnauthorizedException',
         'UnauthorizedSignatureException',
-        'UnauthorizedPassowrdCheckerException'
+        'UnauthorizedPassowrdCheckerException',
+        'UnauthorizedMoreSessionException'
     ]
 
 
@@ -23,3 +24,7 @@ class UnauthorizedPassowrdCheckerException(BaseExceptionHandler):
 class UnauthorizedSignatureException(BaseExceptionHandler):
     status_code = 401
     detail = 'Who are you? You are not welcome here'
+
+class UnauthorizedMoreSessionException(BaseExceptionHandler):
+    status_code = 401
+    detail = 'More session'
