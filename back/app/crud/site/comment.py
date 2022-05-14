@@ -20,6 +20,12 @@ class CRUDcomment(CRUD):
             where game_id = $1;
         """
 
+        effect = await self.__postgres.fetch(
+                query,
+                game_id
+                )
+        return effect
+
     async def create(
             self,
             content: str,
@@ -29,6 +35,13 @@ class CRUDcomment(CRUD):
             insert into game.comment(content, game_id, client_id)
             values($1, $2, $3);
         """
+        
+        await self.__postgres.create(
+                query,
+                content,
+                game_id,
+                client_id
+                )
 
     async def update(self):
         ...

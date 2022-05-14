@@ -15,7 +15,11 @@ class CRUDclient(CRUD):
             login: str) -> Client:
         
         query = """
-            select * from client.client
+            select
+                id as "client_id",
+                login,
+                password
+            from client.client
             where login = $1;
         """
         
@@ -33,9 +37,14 @@ class CRUDclient(CRUD):
             login: str,
             password: str):
         query = """
-            insert into game.comment(login, password)
+            insert into client.client(login, password)
             values($1, $2);
         """
+        await self.__postgres.create(
+                query,
+                login,
+                password
+                )
 
     async def update(self):
         ...

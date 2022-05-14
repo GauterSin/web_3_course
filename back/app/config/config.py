@@ -41,9 +41,6 @@ class Setting(_Setting):
     REDIS_PASSWORD: str
     REDIS_DATABASE: str
 
-    CRYPT_KEY: str
-    JWT_SECRET: str
-
     # cli_args
     REFLECTOR: bool = False
 

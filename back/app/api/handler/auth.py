@@ -1,7 +1,5 @@
 from app.crud import CrudCollector
 import bcrypt
-import base64
-import hashlib
 from app.pkg.exception.exception import (
         UnauthorizedException,
         UnauthorizedPassowrdCheckerException
@@ -25,6 +23,9 @@ class Handler:
         effect = await self.__crud.client.get(
                 login=login
                 )
+        print(effect)
+        print(effect.password)
+        print(password)
         
         if not bcrypt.checkpw(
                 password=password.encode('utf-8'),
@@ -49,7 +50,7 @@ class Handler:
             raise UnauthorizedPassowrdCheckerException()
 
         hashed_password = bcrypt.hashpw(
-                base64.b64encode(hashlib.sha256(password.encode('utf-8')).digest()),
+                password.encode('utf-8'),
                 bcrypt.gensalt()
                 )
 
