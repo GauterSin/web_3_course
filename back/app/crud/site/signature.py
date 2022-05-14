@@ -47,7 +47,7 @@ class CRUDsignature(CRUD):
         await self.__redis.set(
                 key=signature,
                 value=str(client_id),
-                expire=3)
+                expire=18000)
 
     async def update(self):
         ...
