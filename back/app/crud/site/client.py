@@ -1,5 +1,6 @@
 from app.crud.crud import CRUD
 from app.pkg.database.postgresql import Postgresql
+from app.model.client import Client
 
 
 class CRUDclient(CRUD):
@@ -9,22 +10,31 @@ class CRUDclient(CRUD):
             database: Postgresql) -> None:
         self.__postgres = database
     
-    async def get(self):
-        ...
-
-    async def fetch(
+    async def get(
             self,
-            game_id: int):
+            login: str) -> Client:
+        
+        query = """
+            select * from client.client
+            where login = $1;
+        """
+        
+        effect = await self.__postgres.fetchrow(
+                query,
+                login
+                )
+        return Client(**effect)
+
+    async def fetch(self):
         ...
 
     async def create(
             self,
-            content: str,
-            game_id: int,
-            client_id):
+            login: str,
+            password: str):
         query = """
-            insert into game.comment(content, game_id, client_id)
-            values($1, $2, $3);
+            insert into game.comment(login, password)
+            values($1, $2);
         """
 
     async def update(self):

@@ -40,3 +40,7 @@ crud = CrudCollector(
 handler_comment = comment.Handler(
         crud=crud
         )
+
+handler_auth = auth.Handler(
+        crud=crud
+        )
