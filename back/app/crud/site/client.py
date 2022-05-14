@@ -1,6 +1,7 @@
 from app.crud.crud import CRUD
 from app.pkg.database.postgresql import Postgresql
 from app.model.client import Client
+from app.pkg.exception.exception import UnauthorizedException
 
 
 class CRUDclient(CRUD):
@@ -27,6 +28,9 @@ class CRUDclient(CRUD):
                 query,
                 login
                 )
+        if effect is None:
+            raise UnauthorizedException()
+
         return Client(**effect)
 
     async def fetch(self):
