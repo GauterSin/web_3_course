@@ -16,7 +16,15 @@ class CRUDcomment(CRUD):
             self,
             game_id: int):
         query = """
-            select * from game.comment
+            select 
+                gc.id as "id",
+                gc.content as "content",
+                gc.game_id as "game_id",
+                gc.client_id as "client_id",
+                cc.login as "username"
+            from game.comment gc
+            inner join client.client cc
+            on gc.client_id = cc.id
             where game_id = $1;
         """
 
